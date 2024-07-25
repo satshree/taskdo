@@ -19,11 +19,10 @@ class LoginViewViewModel: ObservableObject {
         guard validate() else {
             return
         }
-        
+
         Auth
             .auth()
             .signIn(withEmail: email, password: password)
-
     }
     
     private func validate() -> Bool {
