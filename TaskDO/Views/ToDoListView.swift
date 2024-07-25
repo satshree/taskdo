@@ -6,13 +6,38 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ToDoListView: View {
+    @StateObject var viewModel = ToDoListViewViewModel()
+    
+    let userID: String
+    
+    init(userID: String) {
+        self.userID = userID
+    }
+    
     var body: some View {
-        Text("Logged In")
+        NavigationView {
+            VStack {
+                Text("Welcome back")
+                
+            }
+            .navigationTitle("ToDos")
+            .toolbar {
+                Button {
+                    viewModel.showNewItemView = !viewModel.showNewItemView
+                } label : {
+                    Image(systemName: "plus")
+                }
+            }
+            .sheet(isPresented: $viewModel.showNewItemView) {
+                NewItemView(newItemPresented: $viewModel.showNewItemView)
+            }
+        }
     }
 }
 
 #Preview {
-    ToDoListView()
+    ToDoListView(userID: "")
 }
