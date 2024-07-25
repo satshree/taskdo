@@ -12,6 +12,8 @@ struct ToDoListView: View {
     @StateObject var viewModel: ToDoListViewViewModel
     @FirestoreQuery var items: [ToDoListItem]
     
+    private let userID: String
+    
     init(userID: String) {
         self._items = FirestoreQuery(collectionPath: "users/\(userID)/todos")
         self._viewModel = StateObject(
@@ -19,13 +21,14 @@ struct ToDoListView: View {
                 userID: userID
             )
         )
+        self.userID = userID
     }
     
     var body: some View {
         NavigationView {
             VStack {
                 List(items) { item in
-                    ToDoListItemView(item: item)
+                    ToDoListItemView(userID: userID, item: item)
                         .swipeActions {
                             Button {
                                 viewModel.delete(id: item.id)
@@ -34,9 +37,8 @@ struct ToDoListView: View {
                             }.tint(.red)
                         }
                 }
-                .listStyle(PlainListStyle())
-                
             }
+            .contentMargins(.top, 20)
             .navigationTitle("ToDos")
             .toolbar {
                 Button {

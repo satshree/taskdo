@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct ToDoListItemView: View {
-    @StateObject var viewModel = ToDoListItemViewViewModel()
+    @StateObject var viewModel: ToDoListItemViewViewModel
     
     let item: ToDoListItem
+    
+    init(userID: String, item: ToDoListItem) {
+        self._viewModel = StateObject(
+            wrappedValue: ToDoListItemViewViewModel(
+                userID: userID
+            )
+        )
+        self.item = item
+    }
     
     var body: some View {
         HStack {
@@ -27,7 +36,7 @@ struct ToDoListItemView: View {
             Button {
                 viewModel.toggleCheck(item: item)
             } label : {
-                Image(systemName: item.isDone ? "circle.checkmark.fill" : "circle")
+                Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
             }
         }
         .padding(.leading, 20)
@@ -36,11 +45,13 @@ struct ToDoListItemView: View {
 }
 
 #Preview {
-    ToDoListItemView(item: .init(
-        id: UUID().uuidString,
-        title: "New ToDo",
-        dueDate: Date().timeIntervalSince1970,
-        createdDate: Date().timeIntervalSince1970,
-        isDone: false
-    ))
+    ToDoListItemView(
+        userID: "",
+        item: ToDoListItem(
+            id: UUID().uuidString,
+            title: "New ToDo",
+            dueDate: Date().timeIntervalSince1970,
+            createdDate: Date().timeIntervalSince1970,
+            isDone: false
+        ))
 }
