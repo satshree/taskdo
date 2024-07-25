@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var viewModel = MainViewViewModel()
+    
+//    init() {
+//        print("INIT MAIN", viewModel.isSignedIn, viewModel.currentUserId)
+//    }
+//    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            if viewModel.isSignedIn
+//                , !viewModel.currentUserId.isEmpty
+            {
+                ToDoListView()
+            } else {
+                LoginView()
+            }
+        }
     }
 }
 
