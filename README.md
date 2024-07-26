@@ -16,19 +16,25 @@ Reference crash course I used
 ## Screenshots
 
 > Login Screen
-> ![](./screenshots/login.PNG)
+>
+> <img src="./screenshots/login.PNG" style="width: 50%" />
 
 > Sign Up Screen
-> ![](./screenshots/signup.PNG)
+>
+> <img src="./screenshots/signup.PNG" style="width: 50%" />
 
 > Home Screen (empty)
-> ![](./screenshots/home.PNG)
+>
+> <img src="./screenshots/home.PNG" style="width: 50%" />
 
 > Task Form
-> ![](./screenshots/form.PNG)
+>
+> <img src="./screenshots/form.PNG" style="width: 50%" />
 
 > Home Screen (with tasks)
-> ![](./screenshots/list.PNG)
+>
+> <img src="./screenshots/list.PNG" style="width: 50%" />
 
 > Profile Page
-> ![](./screenshots/profile.PNG)
+>
+> <img src="./screenshots/profile.PNG" style="width: 50%" />
