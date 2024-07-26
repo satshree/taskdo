@@ -27,31 +27,16 @@ struct ToDoListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List {
-                    Section(header: Text("Upcoming")) {
-                        ForEach(items.filter { $0.isDone == false } ) { item in
-                            ToDoListItemView(userID: userID, item: item)
-                                .swipeActions {
-                                    Button {
-                                        viewModel.delete(id: item.id)
-                                    } label: {
-                                        Text("Delete")
-                                    }.tint(.red)
-                                }
-                        }
+                if items.count == 0 {
+                    HStack {
+                        Text("Add tasks using")
+                        Image(systemName:"plus")
+                            .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                            .frame(width: 20, height: 20)
+                        Text("from top right corner")
                     }
-                    Section(header: Text("Cleared")) {
-                        ForEach(items.filter { $0.isDone == true }) { item in
-                            ToDoListItemView(userID: userID, item: item)
-                                .swipeActions {
-                                    Button {
-                                        viewModel.delete(id: item.id)
-                                    } label: {
-                                        Text("Delete")
-                                    }.tint(.red)
-                                }
-                        }
-                    }
+                } else {
+                    getLists()
                 }
             }
             .contentMargins(.top, 20)
@@ -65,6 +50,36 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $viewModel.showNewItemView) {
                 NewItemView(newItemPresented: $viewModel.showNewItemView)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func getLists() -> some View {
+        List {
+            Section(header: Text("Upcoming")) {
+                ForEach(items.filter { $0.isDone == false } ) { item in
+                    ToDoListItemView(userID: userID, item: item)
+                        .swipeActions {
+                            Button {
+                                viewModel.delete(id: item.id)
+                            } label: {
+                                Text("Delete")
+                            }.tint(.red)
+                        }
+                }
+            }
+            Section(header: Text("Cleared")) {
+                ForEach(items.filter { $0.isDone == true }) { item in
+                    ToDoListItemView(userID: userID, item: item)
+                        .swipeActions {
+                            Button {
+                                viewModel.delete(id: item.id)
+                            } label: {
+                                Text("Delete")
+                            }.tint(.red)
+                        }
+                }
             }
         }
     }
