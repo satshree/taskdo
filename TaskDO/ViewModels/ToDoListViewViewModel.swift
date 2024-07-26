@@ -12,16 +12,16 @@ import FirebaseFirestore
 class ToDoListViewViewModel: ObservableObject {
     @Published var showNewItemView = false
     
-    private var userID: String
+    private let userID: String
+    private let db = Firestore.firestore()
     
     init(userID: String) {
         self.userID = userID
     }
     
+    
     func delete(id: String) {
-        let db = Firestore.firestore()
-        
-        db
+        self.db
             .collection("users")
             .document(userID)
             .collection("todos")

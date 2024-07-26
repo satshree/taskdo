@@ -27,15 +27,31 @@ struct ToDoListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List(items) { item in
-                    ToDoListItemView(userID: userID, item: item)
-                        .swipeActions {
-                            Button {
-                                viewModel.delete(id: item.id)
-                            } label: {
-                                Text("Delete")
-                            }.tint(.red)
+                List {
+                    Section(header: Text("Upcoming")) {
+                        ForEach(items.filter { $0.isDone == false } ) { item in
+                            ToDoListItemView(userID: userID, item: item)
+                                .swipeActions {
+                                    Button {
+                                        viewModel.delete(id: item.id)
+                                    } label: {
+                                        Text("Delete")
+                                    }.tint(.red)
+                                }
                         }
+                    }
+                    Section(header: Text("Cleared")) {
+                        ForEach(items.filter { $0.isDone == true }) { item in
+                            ToDoListItemView(userID: userID, item: item)
+                                .swipeActions {
+                                    Button {
+                                        viewModel.delete(id: item.id)
+                                    } label: {
+                                        Text("Delete")
+                                    }.tint(.red)
+                                }
+                        }
+                    }
                 }
             }
             .contentMargins(.top, 20)
@@ -55,5 +71,5 @@ struct ToDoListView: View {
 }
 
 #Preview {
-    ToDoListView(userID: "pyLZEqKo1kPnjOdq01ruNCigzeh1")
+    ToDoListView(userID: "")
 }
